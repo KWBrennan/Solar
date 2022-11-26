@@ -1,6 +1,3 @@
-# coding: utf-8
-# license: GPLv3
-
 import tkinter
 from tkinter.filedialog import *
 from solar_vis import *
@@ -10,7 +7,6 @@ from solar_input import *
 perform_execution = False
 """Флаг цикличности выполнения расчёта"""
 
-physical_time = 0
 """Физическое время от начала расчёта.
 Тип: float"""
 
@@ -24,6 +20,7 @@ time_step = None
 
 space_objects = []
 """Список космических объектов."""
+
 
 
 def execution():
@@ -150,3 +147,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+    read_space_objects_data_from_file('solar_system.txt')
+    create_star_image(space, Star)
+    create_planet_image(space, Planet)

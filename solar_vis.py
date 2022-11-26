@@ -1,6 +1,3 @@
-# coding: utf-8
-# license: GPLv3
-
 """Модуль визуализации.
 Нигде, кроме этого модуля, не используются экранные координаты объектов.
 Функции, создающие гaрафические объекты и перемещающие их на экране, принимают физические координаты
@@ -9,13 +6,13 @@
 header_font = "Arial-16"
 """Шрифт в заголовке"""
 
-window_width = 800
+window_width = 500
 """Ширина окна"""
 
-window_height = 800
+window_height = 500
 """Высота окна"""
 
-scale_factor = None
+scale_factor = 1
 """Масштабирование экранных координат по отношению к физическим.
 Тип: float
 Мера: количество пикселей на один метр."""
@@ -33,12 +30,10 @@ def scale_x(x):
     Принимает вещественное число, возвращает целое число.
     В случае выхода **x** координаты за пределы экрана возвращает
     координату, лежащую за пределами холста.
-
     Параметры:
-
     **x** — x-координата модели.
     """
-
+    
     return int(x*scale_factor) + window_width//2
 
 
@@ -48,20 +43,16 @@ def scale_y(y):
     В случае выхода **y** координаты за пределы экрана возвращает
     координату, лежащую за пределами холста.
     Направление оси развёрнуто, чтобы у модели ось **y** смотрела вверх.
-
     Параметры:
-
     **y** — y-координата модели.
     """
 
-    return y  # FIXME: not done yet
+    return int(y*scale_factor) + window_height//2  #fix__________
 
 
 def create_star_image(space, star):
     """Создаёт отображаемый объект звезды.
-
     Параметры:
-
     **space** — холст для рисования.
     **star** — объект звезды.
     """
@@ -74,21 +65,22 @@ def create_star_image(space, star):
 
 def create_planet_image(space, planet):
     """Создаёт отображаемый объект планеты.
-
     Параметры:
-
     **space** — холст для рисования.
     **planet** — объект планеты.
     """
-    pass  # FIXME: сделать как у звезды
+
+    x = scale_x(planet.x)
+    y = scale_y(planet.y)
+    r = planet.R
+    planet.image = space.create_oval([x - r, y - r], [x + r, y + r], fill=planet.color)
+
 
 
 def update_system_name(space, system_name):
     """Создаёт на холсте текст с названием системы небесных тел.
     Если текст уже был, обновляет его содержание.
-
     Параметры:
-
     **space** — холст для рисования.
     **system_name** — название системы тел.
     """
@@ -97,9 +89,7 @@ def update_system_name(space, system_name):
 
 def update_object_position(space, body):
     """Перемещает отображаемый объект на холсте.
-
     Параметры:
-
     **space** — холст для рисования.
     **body** — тело, которое нужно переместить.
     """
@@ -114,3 +104,5 @@ def update_object_position(space, body):
 
 if __name__ == "__main__":
     print("This module is not for direct call!")
+
+
